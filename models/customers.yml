@@ -13,9 +13,11 @@ models:
 
 sources:
   - name: coffee_shop
+    description: Schema containing customer and order data for the coffee shop
     project: analytics-engineers-club
     tables:
       - name: customers
+        description: Source data on our coffee shop customers including a unique ID, name, and email address
         columns:
           - name: id
             tests:
@@ -23,6 +25,7 @@ sources:
               - not_null
 
       - name: orders
+        description: Source data on our coffee shop orders including a unique ID, customer ID, timestamp of when it was placed, order total, and delivery address
         columns:
           - name: id
             tests:
