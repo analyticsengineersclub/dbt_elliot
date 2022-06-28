@@ -8,7 +8,7 @@ models:
         description: Primary key
         tests:
           - unique
-          - not null
+          - not_null
   - name: stg_order_items
     description: Staged order item data; only difference is the primary key column is `order_item_id` rather than `id`
     columns:
@@ -16,7 +16,7 @@ models:
         description: Primary key
         tests:
           - unique
-          - not null
+          - not_null
   - name: stg_orders
     description: Staged order data; added a column to indicate whether it's the first order this customer has placed and renamed the primary key column to `order_id` rather than `id`
     columns:
@@ -24,7 +24,7 @@ models:
         description: Primary key
         tests:
           - unique
-          - not null
+          - not_null
       - name: is_new_customer
         description: Internally created boolean column that indicates whether this is the first order a customer has placed
   - name: stg_product_prices
@@ -34,7 +34,7 @@ models:
         description: Primary key
         tests:
           - unique
-          - not null
+          - not_null
       - name: ended_at
         description: Internally created boolean column that indicates whether the price no longer applies
   - name: stg_products
@@ -44,7 +44,7 @@ models:
         description: Primary key
         tests:
           - unique
-          - not null
+          - not_null
 
 
 sources:
