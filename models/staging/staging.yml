@@ -49,7 +49,7 @@ models:
 
 sources:
   - name: coffee_shop
-    description: Schema containing customer and order data for the coffee shop
+    description: Schema containing customer, order, and product data for the coffee shop
     project: analytics-engineers-club
     tables:
       - name: customers
