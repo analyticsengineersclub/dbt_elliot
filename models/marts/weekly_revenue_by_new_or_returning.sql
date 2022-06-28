@@ -8,7 +8,8 @@ final as (
 
     select
         date_trunc(created_at, week) as date_week,
-        is_new_customer,
+        case when is_new_customer then 'New customers'
+             else 'Returning customers' end as customer_type,
         sum(price) as total_revenue,
         count(distinct order_id) as total_orders,
         count(distinct order_item_id) as total_items_purchased,

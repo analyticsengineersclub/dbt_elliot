@@ -2,12 +2,49 @@ version: 2
 
 models:
   - name: customers_macro
-    description: Table of cleaned up customer data including unique IDs, personal info, and purchase history
+    description: Each row represents a customer and contains personal info and purchase history
     columns:
       - name: customer_id
-        description: Primary key of the model
+        description: Primary key
         tests:
           - unique
           - not_null
+  - name: items_ordered
+    description: Each row represents an individual item ordered and contains foreign keys (order, product, and customer) as well as product information and whether the customer is new or not
+    columns:
+      - name: order_item_id
+        description: Primary key
+        tests: 
+          - unique
+          - not_null
+  - name: new_customers_by_week
+    description: Each row represents a week and contains the number of new customers we had that week
+    columns:
+      - name: first_order_week
+        tests:
+          - unique
+          - not_null
+  - name: product_performance_by_state
+    description: Each row represents a product and contains how many have been shipped to each state and how much revenue the product has produced in each state
+  - name: products_macro
+    description: Each row represents a product and contains the number ordered and the total revenue produced
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+  - name: weekly_revenue_by_category
+    description: Each row represents a unique combo of a week and a product category and contains the total revenue, orders, items purchased, and unique customers
+  - name: weekly_revenue_by_delivery_state
+    description: Each row represents a unique combo of a week and a state and contains the total revenue generated, orders placed, items purchased, and unique customers in that category that week
+  - name: weekly_revenue_by_category
+    description: Each row represents a unique combo of a week and a product category and contains the total revenue generated, orders placed, items purchased, and unique customers in that state in that week
+  - name: weekly_revenue_by_new_or_returning
+    description: Each row represents a unique combo of a week and customer type (new or returning) and contains the total revenue generated, orders placed, and items purchased in that week by that type of customer
+    columns:
+      - name: customer_type
+        description: Case when statement built on top of the boolean `is_new_customer` for readability
+
+    
 
 
