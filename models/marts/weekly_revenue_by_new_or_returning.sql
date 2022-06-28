@@ -7,7 +7,7 @@ orders as (
 final as (
 
     select
-        date_trunc(created_at) as date_week,
+        date_trunc(created_at, week) as date_week,
         is_new_customer,
         sum(total) as total_revenue
     from orders
