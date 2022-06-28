@@ -1,6 +1,8 @@
-with customers as (
+with 
 
-    select * from {{ ref ('customers')}}
+customers as (
+
+    select * from {{ ref ('customers_macro')}}
 
 )
 
