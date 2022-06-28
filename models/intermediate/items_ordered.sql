@@ -26,7 +26,8 @@ final as (
         orders.state as delivery_state,
         products.product_name,
         products.product_category,
-        product_prices.price
+        product_prices.price,
+        orders.created_at
     from order_items
     left join orders using(order_id)
     left join products using(product_id)
