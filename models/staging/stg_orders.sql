@@ -4,8 +4,16 @@ with source as (
 
 ),
 
-renamed as (
+base as (
 
+    select
+        source.*,
+        row_number() over (partition by id order by created_at asc) as row
+    from source
+
+),
+
+renamed as (
     select
         id as order_id,
         customer_id,
@@ -13,9 +21,9 @@ renamed as (
         address,
         state,
         zip,
-        created_at
-    from source
-
+        created_at,
+        row=1 as is_new_customer
+    from base
 )
 
 select * from renamed
