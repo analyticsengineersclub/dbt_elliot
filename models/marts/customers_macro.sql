@@ -29,6 +29,7 @@ final as (
       customer_orders.first_order_at,
   from customers
   left join  customer_orders using(customer_id)
+  
 )
 
 select * from final

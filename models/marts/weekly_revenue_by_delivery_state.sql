@@ -5,6 +5,7 @@ orders as (
 ),
 
 final as (
+
     select
         date_trunc(created_at, week) as date_week,
         state as delivery_state,
@@ -12,6 +13,7 @@ final as (
     from orders
     group by 1,2
     order by 1,2
+    
 )
 
 select * from final

@@ -4,18 +4,24 @@ items_ordered as (
     select * from {{ref ('items_ordered')}}
 ),
 
+products as (
+    select * from {{ref ('stg_products')}}
+),
+
 final as (
 
     select 
-        product_id,
-        product_name,
-        product_category,
-        price,
-        count(distinct order_item_id) as total_purchased,
-        sum(price) as total_revenue
+        items_ordered.product_id,
+        items_ordered.product_name,
+        items_ordered.product_category,
+        items_ordered.price,
+        count(distinct items_ordered.order_item_id) as total_purchased,
+        sum(items_ordered.price) as total_revenue,
+        products.created_at
     from items_ordered
-    group by 1,2,3,4
-    order by 1,2,3,4
+    left join products using(product_id)
+    group by 1,2,3,4,7
+    order by 1,2,3,4,7
 
 )
 
