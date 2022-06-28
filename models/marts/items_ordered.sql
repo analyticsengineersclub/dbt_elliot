@@ -12,10 +12,8 @@ products as (
     select * from {{ref ('stg_products')}}
 ),
 
-product_prices as (
-    select * 
-    from {{ref ('stg_product_prices')}}
-    where has_not_ended
+prices as (
+    select * from {{ref ('price_at_time_of_order')}}
 ),
 
 final as (
@@ -28,13 +26,13 @@ final as (
         orders.state as delivery_state,
         products.product_name,
         products.product_category,
-        product_prices.price,
+        prices.price_at_time_of_order as price,
         orders.is_new_customer,
         orders.created_at
     from order_items
     left join orders using(order_id)
     left join products using(product_id)
-    left join product_prices using(product_id)
+    left join prices using(order_item_id)
 
 )
 
