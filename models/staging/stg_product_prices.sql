@@ -10,9 +10,9 @@ renamed as (
         id as product_price_id,
         product_id,
         price,
+        ended_at is null as has_not_ended,
         created_at,
         ended_at
-
     from source
 
 )

@@ -1,0 +1,93 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: Staged customer data; only difference is the primary key column is `customer_id` rather than `id`
+    columns:
+      - name: customer_id
+        description: Primary key
+        tests:
+          - unique
+          - not null
+  - name: stg_order_items
+    description: Staged order item data; only difference is the primary key column is `order_item_id` rather than `id`
+    columns:
+      - name: order_item_id
+        description: Primary key
+        tests:
+          - unique
+          - not null
+  - name: stg_orders
+    description: Staged order data; added a column to indicate whether it's the first order this customer has placed and renamed the primary key column to `order_id` rather than `id`
+    columns:
+      - name: order_id
+        description: Primary key
+        tests:
+          - unique
+          - not null
+      - name: is_new_customer
+        description: Internally created boolean column that indicates whether this is the first order a customer has placed
+  - name: stg_product_prices
+    description: Staged product price data; added a column to indicate whether the price still aplies and renamed the primary key column to `product_price_id` rather than `id`
+    columns:
+      - name: product_price_id
+        description: Primary key
+        tests:
+          - unique
+          - not null
+      - name: ended_at
+        description: Internally created boolean column that indicates whether the price no longer applies
+  - name: stg_products
+    description: Staged product data; renamed primary key `product_id` rather than `id` and added `product_` prefix to the name and category columns to make them more identifiable.
+    columns:
+      - name: product_id
+        description: Primary key
+        tests:
+          - unique
+          - not null
+
+
+sources:
+  - name: coffee_shop
+    description: Schema containing customer and order data for the coffee shop
+    project: analytics-engineers-club
+    tables:
+      - name: customers
+        description: Source data on our coffee shop customers including a unique ID, name, and email address
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: orders
+        description: Source data on our coffee shop orders including a unique ID, customer ID, timestamp of when it was placed, order total, and delivery address
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: order_items
+        description: Source data on the items in each of our coffee shop orders
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: products
+        description: Source data on our products including name and category (but not price)
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: product_prices
+        description: Source data containing product prices and the dates of implementation and termination
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
