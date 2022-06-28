@@ -5,7 +5,7 @@ with customers as (
 )
 
 select 
-    date_trunc(first_order_at, month) as first_order_month,
+    date_trunc(first_order_at, week) as first_order_week,
     count(distinct customer_id) as new_customers
 from customers 
 group by 1
