@@ -24,6 +24,13 @@ models:
         tests:
           - unique
           - not_null
+  - name: price_at_time_of_order
+    description: Each row represents an item ordered and contains the price of the item at the order was place which is the price that the customer would have paid for the item
+    columns:
+      - name: order_item_id
+        tests: 
+          - unique
+          - not_null
   - name: product_performance_by_state
     description: Each row represents a product and contains how many have been shipped to each state and how much revenue the product has produced in each state
   - name: products_macro

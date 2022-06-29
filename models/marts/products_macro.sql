@@ -8,20 +8,34 @@ products as (
     select * from {{ref ('stg_products')}}
 ),
 
+product_prices as (
+    select * from {{ref ('stg_product_prices')}}
+),
+
+aggregates as (
+
+    select 
+        product_id,
+        count(distinct order_item_id) as total_purchased,
+        sum(price) as total_revenue
+    from items_ordered
+    group by 1
+
+),
+
 final as (
 
     select 
-        items_ordered.product_id,
-        items_ordered.product_name,
-        items_ordered.product_category,
-        items_ordered.price,
-        count(distinct items_ordered.order_item_id) as total_purchased,
-        sum(items_ordered.price) as total_revenue,
+        products.product_id,
+        products.product_name,
+        products.product_category,
+        product_prices.price,
+        aggregates.total_purchased,
+        aggregates.total_revenue,
         products.created_at
-    from items_ordered
-    left join products using(product_id)
-    group by 1,2,3,4,7
-    order by 1,2,3,4,7
+    from products
+    left join product_prices using(product_id)
+    left join aggregates using(product_id)
 
 )
 

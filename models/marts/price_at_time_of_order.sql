@@ -35,7 +35,7 @@ case_when as (
                 then price
             when order_date between price_start_at and price_end_at
                 then price
-            when cast(order_date as date) = cast(price_end_at as date) 
+            when cast(order_date as date) = cast('2021-05-31' as date) and cast(price_end_at as date) = cast('2021-05-31' as date)
                 then price
             else null end as price_at_time_of_order
     from base
@@ -52,4 +52,4 @@ final as (
 
 )
 
-select * from case_when
+select * from final
