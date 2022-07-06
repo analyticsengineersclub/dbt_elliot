@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: items_ordered
+    description: Each row represents an individual item ordered and contains foreign keys (order, product, and customer) as well as product information and whether the customer is new or not
+    columns:
+      - name: order_item_id
+        description: Primary key
+        tests: 
+          - unique
+          - not_null
+  - name: price_at_time_of_order
+    description: Each row represents an item ordered and contains the price of the item at the order was place which is the price that the customer would have paid for the item
+    columns:
+      - name: order_item_id
+        tests: 
+          - unique
+          - not_null
+  - name: page_visits_stitched
+    description: Each row represents a single visit to a page on our website and contains the corresponding stitched visitor_id
+    columns:
+      - name: page_visit_id
+        tests: 
+          - unique
+          - not_null
+      - name: visitor_id
+        tests:
+          - not_null
+  - name: page_visits_w_session
+    description: Each row represents a single visit to a page on our website and contains the corresponding session_id
+    columns:
+      - name: page_visit_id
+        tests: 
+          - unique
+          - not_null
+      - name: visited_at
+        tests:
+          - not_null
+      - name: session_id
+        tests:
+          - not_null

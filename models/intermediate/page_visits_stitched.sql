@@ -1,7 +1,7 @@
 with 
 
 page_visits as (
-    select * from {{ref ('stg_page_visits')}}
+    select * from {{ref ('stg_page_visits')}} where customer_id is not null
 ),
 
 deduped_ids as (
@@ -10,7 +10,6 @@ deduped_ids as (
     visitor_id,
     min(visited_at) as earliest_visit_at
   from page_visits
-  where customer_id is not null
   group by 1,2
 ),
 

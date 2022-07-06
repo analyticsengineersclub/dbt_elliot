@@ -9,14 +9,6 @@ models:
         tests:
           - unique
           - not_null
-  - name: items_ordered
-    description: Each row represents an individual item ordered and contains foreign keys (order, product, and customer) as well as product information and whether the customer is new or not
-    columns:
-      - name: order_item_id
-        description: Primary key
-        tests: 
-          - unique
-          - not_null
   - name: new_customers_by_week
     description: Each row represents a week and contains the number of new customers we had that week
     columns:
@@ -24,11 +16,12 @@ models:
         tests:
           - unique
           - not_null
-  - name: price_at_time_of_order
-    description: Each row represents an item ordered and contains the price of the item at the order was place which is the price that the customer would have paid for the item
+  - name: page_visits
+    description: Each row represents a single page visited on our webpage and contains information about the user and session
     columns:
-      - name: order_item_id
-        tests: 
+      - name: page_visit_id
+        description: Primary key
+        tests:
           - unique
           - not_null
   - name: product_performance_by_state
