@@ -8,10 +8,6 @@ products as (
     select * from {{ref ('stg_products')}}
 ),
 
-product_prices as (
-    select * from {{ref ('stg_product_prices')}}
-),
-
 aggregates as (
 
     select 
@@ -29,12 +25,10 @@ final as (
         products.product_id,
         products.product_name,
         products.product_category,
-        product_prices.price,
         aggregates.total_purchased,
         aggregates.total_revenue,
         products.created_at
     from products
-    left join product_prices using(product_id)
     left join aggregates using(product_id)
 
 )
