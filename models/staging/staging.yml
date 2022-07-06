@@ -91,3 +91,15 @@ sources:
             tests:
               - unique
               - not_null
+            
+  - name: web_tracking
+    description: Schema containing pageviews data
+    project: analytics-engineers-club
+    tables:
+      - name: pageviews
+        description: Source data on our web page's visitors, their activity, and their IDs
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
