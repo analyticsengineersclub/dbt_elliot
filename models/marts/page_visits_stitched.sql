@@ -1,7 +1,7 @@
 with 
 
-page_views as (
-    select * from {{ref ('stg_page_views')}}
+page_visits as (
+    select * from {{ref ('stg_page_visits')}}
 ),
 
 deduped_ids as (
@@ -9,7 +9,7 @@ deduped_ids as (
     customer_id, 
     visitor_id,
     min(visited_at) as earliest_visit_at
-  from page_views
+  from page_visits
   where customer_id is not null
   group by 1,2
 ),
@@ -24,13 +24,9 @@ grouped as (
 
 final as (
   select 
-    page_views.page_visit_id,
-    grouped.visitor_id,
-    page_views.customer_id,
-    page_views.page_visited,
-    page_views.device_type,
-    page_views.visited_at
-  from page_views
+    page_visits.page_visit_id,
+    grouped.visitor_id
+  from page_visits
   left join grouped using(customer_id)
 )
 
