@@ -1,12 +1,12 @@
 version: 2
 
 models:
-  - name: customers_macro
-    description: Each row represents a customer and contains personal info and purchase history
+  - name: cumulative_revenue_by_customer
+    description: Each row represents a unique combination of customer and week since their first purchase and contains the weekly and cumulative revenue from that customer (meant to expedite LTV models)
     columns:
-      - name: customer_id
+      - name: customer_week_id
         description: Primary key
-        tests:
+        tests:  
           - unique
           - not_null
   - name: new_customers_by_week
@@ -26,13 +26,6 @@ models:
           - not_null
   - name: product_performance_by_state
     description: Each row represents a product and contains how many have been shipped to each state and how much revenue the product has produced in each state
-  - name: products_macro
-    description: Each row represents a product and contains the number ordered and the total revenue produced
-    columns:
-      - name: product_id
-        tests:
-          - unique
-          - not_null
   - name: weekly_revenue_by_category
     description: Each row represents a unique combo of a week and a product category and contains the total revenue, orders, items purchased, and unique customers
   - name: weekly_revenue_by_delivery_state

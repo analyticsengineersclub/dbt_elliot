@@ -1,12 +1,48 @@
 version: 2
 
 models:
+  - name: customers_macro
+    description: Each row represents a customer and contains personal info and purchase history
+    columns:
+      - name: customer_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
   - name: items_ordered
     description: Each row represents an individual item ordered and contains foreign keys (order, product, and customer) as well as product information and whether the customer is new or not
     columns:
       - name: order_item_id
         description: Primary key
         tests: 
+          - unique
+          - not_null
+  - name: orders_expanded
+    description: Each row represents an order and contains information about the order time, customer, their purchase history, and delivery address
+    columns:
+      - name: order_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+  - name: page_visits_w_session
+    description: Each row represents a single visit to a page on our website and contains the corresponding session_id
+    columns:
+      - name: page_visit_id
+        tests: 
+          - unique
+          - not_null
+      - name: visited_at
+        tests:
+          - not_null
+      - name: session_id
+        tests:
+          - not_null
+  - name: products_macro
+    description: Each row represents a product and contains the number ordered and the total revenue produced
+    columns:
+      - name: product_id
+        tests:
           - unique
           - not_null
   - name: price_at_time_of_order
@@ -24,18 +60,5 @@ models:
           - unique
           - not_null
       - name: visitor_id
-        tests:
-          - not_null
-  - name: page_visits_w_session
-    description: Each row represents a single visit to a page on our website and contains the corresponding session_id
-    columns:
-      - name: page_visit_id
-        tests: 
-          - unique
-          - not_null
-      - name: visited_at
-        tests:
-          - not_null
-      - name: session_id
         tests:
           - not_null

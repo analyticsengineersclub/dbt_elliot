@@ -50,6 +50,7 @@ weekly_sums as (
 final as (
   
     select 
+        concat(customer_id,concat('_', customer_week_num)) as customer_week_id,
         week_dates.customer_id,
         week_dates.customer_week_num,
         coalesce(weekly_sums.num_orders,0) as num_orders,
