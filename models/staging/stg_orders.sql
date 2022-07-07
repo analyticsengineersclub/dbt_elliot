@@ -8,7 +8,7 @@ base as (
 
     select
         source.*,
-        row_number() over (partition by id order by created_at asc) as row
+        row_number() over (partition by customer_id order by created_at asc) as row
     from source
 
 ),
