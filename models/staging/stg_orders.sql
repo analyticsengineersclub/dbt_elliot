@@ -8,7 +8,7 @@ base as (
 
     select
         source.*,
-        row_number() over (partition by customer_id order by created_at asc) as row
+        row_number() over (partition by customer_id order by created_at asc) as row,
     from source
 
 ),
@@ -21,8 +21,9 @@ renamed as (
         address,
         state,
         zip,
+        row=1 as is_new_customer,
         created_at,
-        row=1 as is_new_customer
+        cast(date_trunc(created_at, week) as date) as created_at_week_date
     from base
 )
 
