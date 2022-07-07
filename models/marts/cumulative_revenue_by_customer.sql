@@ -18,15 +18,15 @@ week_dates as (
         dates.date as week_date, 
         customers.customer_id,
         case
-            when cast(customers.first_order_at as date) >= dates.date
+            when cast(date_trunc(customers.first_order_at,week) as date) <= dates.date
                 then cast(
-                        date_diff(
+                        date_diff(dates.date, 
                             date_trunc(
                                 cast(
                                     customers.first_order_at 
                                 as date)
                             ,week)
-                        , dates.date, day)
+                        , day)
                     /7 as int64) + 1 
             else null end as customer_week_num
     from dates
@@ -50,7 +50,7 @@ weekly_sums as (
 final as (
   
     select 
-        concat(customer_id,concat('_', customer_week_num)) as customer_week_id,
+        concat(week_dates.customer_id,concat('_', week_dates.customer_week_num)) as customer_week_id,
         week_dates.customer_id,
         week_dates.customer_week_num,
         coalesce(weekly_sums.num_orders,0) as num_orders,
